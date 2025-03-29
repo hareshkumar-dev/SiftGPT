@@ -18,43 +18,15 @@ export default function Result() {
   const generateResult = async () => {
     // setIsLoading(true);
     try {
-      // Send the input to OpenAI GPT API
+
       const response = await axios.post(
         "https://api.openai.com/v1/chat/completions",
         {
-          model: "gpt-4",
+          model: "gpt-4.5-preview-2025-02-27",
           messages: [
             {
               role: "system",
-              // content: `Based on the user input info, what mood and context of music would the user enjoy based on the following options: Mood: Happy, Sad, Calm, Energetic, Reflective, Motivated, Stressed, Relaxed, Excited, Angry, Confident, Anxious, Nostalgic, Peaceful, Lonely, Hopeful, Melancholic, Playful, Romantic, Inspirational. Context: Romance, Heartbreak, Nostalgia, Empowerment, Celebration, Friendship, Fantasy, Mental health. Your response should be in the form of bullet points with minimum 1 and maximum 4 mood options and minimum 1 maximum 4 context options`,
-              // content: `Read the user’s input very carefully. Take into consideration every key detail, including where they are at, what just happened, their present state, what is about to happen as well as other important information.
-
-              //   That being said, accurately identify the user’s mood, ideal music context and ideal scenario STRICTLY  based on the following options (do not add or remove words)
-
-              //   Mood: Happy, Sad, Calm, Energetic, Reflective, Motivated, Stressed, Relaxed, Excited, Angry, Confident, Anxious, Nostalgic, Peaceful, Lonely, Hopeful, Despair, Playful, Romantic, Inspirational, Empowered, Bittersweet, Awe, Triumph, Funny, Anticipation, In Love, Euphoria, Accomplished, Overjoyed
-
-              //   Context: Romance, Heartbreak, Nostalgia, Empowerment, Dance, Friendship, Fantasy, Mental Health, Success, Relatable, Uplifting
-
-              //   Ideal Scenario: Study, Driving, Gym, Wedding, Date, Gaming, Party, Late-Night Drives, Morning Routine, Breakup, Going Out
-
-
-              //   Your response should be in the form of bullet points with minimum 1 and maximum 4 mood options and minimum 1 maximum 4 context options and minimum 1 maximum 4 ‘ideal scenario’ options
-                
-
-              //   Good example output:
-
-              //   Mood: Energetic, Inspirational, Inspirational
-              //   Context: Romance
-              //   Ideal Scenario: driving, wedding, date / post date
-              //   `,
-              content: `Read the user’s input very carefully. Only consider explicit details provided, including where they are, what just happened, their present state, and what is about to happen. Avoid making any assumptions or interpreting implied feelings, contexts, or scenarios.
-                That being said, accurately identify the user’s mood, ideal music context, and ideal scenario strictly based on the following options (do not add, remove, or infer any additional words):
-                Mood: Happy, Sad, Calm, Energetic, Reflective, Motivated, Stressed, Relaxed, Excited, Angry, Confident, Anxious, Nostalgic, Peaceful, Lonely, Hopeful, Despair, Playful, Romantic, Inspirational, Empowered, Bittersweet, Awe, Triumph, Funny, Anticipation, In Love, Euphoria, Accomplished, Overjoyed
-                Context: Romance, Heartbreak, Nostalgia, Empowerment, Dance, Friendship, Fantasy, Mental Health, Success, Relatable, Uplifting
-                Ideal Scenario: Study, Driving, Gym, Wedding, Date, Gaming, Party, Late-Night Drives, Morning Routine, Breakup, Going Out
-                Your response must reflect the exact details provided in the user’s input and align strictly with the specified options. Do not infer additional meanings or emotions not explicitly stated.
-                Your response should be in the form of bullet points with minimum 1 and maximum 4 mood options and minimum 1 maximum 4 context options and minimum 1 maximum 4 ‘ideal scenario’ options
-                `, // User's input from the form
+              content: `Read the user’s input very carefully. Take into consideration every key detail, including where they are at, what just happened, their present state, what is about to happen as well as other important information.\n\nThat being said, accurately identify the user’s mood, ideal music context and ideal scenario STRICTLY  based on the following options (do not add or remove words)\n\n-\n\nMood: Happy, Sad, Calm, Energetic, Motivated, Stressed, Relaxed, Excited, Angry, Confident, Anxious, Nostalgic, Peaceful, Lonely, Hopeful, Despair, Playful, Romantic, Inspirational, Empowered, Bittersweet, Awe, Triumph, Funny, Anticipation, In Love, Euphoria, Accomplished, Overjoyed, psychedelic, defeat, Poignant Joy\n\n\n-\n\nContext: Romance, Heartbreak, Nostalgia, Empowerment, Dance, Friendship, Fantasy, Mental Health, Success, Relatable, Uplifting\n\n-\n\nIdeal Scenario: Study, Driving, Gym, Wedding, Date, Gaming, Party, Late-Night Drives, Morning Routine, Breakup, Going Out\n\n\n\nExplanation of some of the complex variables listed above. \n\nTo help you understand some of the variables, here is a short explanation of each one, to give you a better understanding of when to use them:\n\nPsychedelic - Use this when the user describes a unique, euphoric feeling they've never experienced before, similar to being high.\n\nNostalgic / Nostalgia - Use this when the user mentions something about reminiscing on the past. Example: “....looking back at the time i was young back in high school….”\n\nConfident - Use when the user describes being in a situation where they would feel confident in, without explicitly mentioning it. Example; “my hair is looking good and I just scored 99% on my exam”\n\nemotional vertigo - Feeling like the moment is too surreal to comprehend fully. Like a mix of emotions that feel so good, which you’ve never felt before. \n\nAwe - A sort of positive emotion that feels good, admirational and lost / confused + relaxed all at the same time. Example - “Looking down at NYC for the first time from the top floor of a skyscraper” Or “lifting the covers off my ferrari and seeing it for the first time, looking back on my life wondering about all the steps i took to end up in this highly desirable position!”\n\nIn love - Similar, but not to be confused with Romance. Use the ‘in love’ variable when the user describes surface-level romance such as seeing a pretty girl they like or being horny. At times, it could also mean a deeper level of romance such as being so emotionally attached to your partner.  \n\nEuphoria - Use only when the user describes being in a situation where they could possibly be so happy.\nExample: First kiss, buying a dream car, getting surprised with the gift they always wanted etc…\n\nFriendship - Use very sparingly. Only use when the user explicitly mentions that they are feeling happy around their friends.\n\nFantasy - use when the user is in a scenario where they could possibly be feeling an overload of positive emotions which they have never felt before. This is induced by the user doing or experiencing something for the first few times which they have never experienced before. Moreso towards the achievement side rather than short term pleasures. \nExample -  \n\nStudy - This includes working as well. Use this variable if the user’s situation involves an activity which requires a book, writing tools or computers. \n\nPoignant Joy - The feeling you get when you achieve something you’ve been wanting, but it doesn’t feel as fulfilling or satisfying as you expected because something still feels missing or not quite right.\nExample: \nYou recover from an illness but regret missing an important opportunity while sick.\n\nA loved one passes away, and though you're sad, reminiscing on your memories together brings comfort and teaches you to cherish moments with others.\n\nAfter achieving your dream of wealth, success, and love, you feel lost, realizing the true joy was in the journey, not the destination.\n\n\nParty - The user is possibly involved or soon to be involved in an activity which involves any of the following: celebration, dancing, music, gathering and/or social event. \n\nGoing Out - Use this variable when the user describes the scenario where they are preparing for something which involves them transporting to a new location for a particular activity. \n\nBittersweet - use this variable when the user explicitly mentions that they are in a situation where they could possibly be experiencing both positive & negative emotion. DO NOT USE this variable if the user does not specify that their situation is \n\nTranquility - A state of complete relaxation, satisfaction, and contentment, often shared with a romantic partner or family member. This feeling can also arise from experiencing nature's beauty, like a stunning beach, leaving you amazed and at peace.\nExample: \n\nLate-Night Drives - only use this when the user explicitly mentions they are going out late at night. Usually for a happy / exciting reason.\n\nYour response should be in the form of bullet points with minimum 1 and maximum 4 mood options and minimum 1 maximum 4 context options and minimum 1 maximum 4 ‘ideal scenario’ options.\n\nOrder your variable selection starting with the ones you are most confident reflect how the user feels. The most likely variable should be listed first, followed by the others in decreasing order of likelihood.\n`, // User's input from the form
             },
             {
               role: "user",
@@ -69,11 +41,6 @@ export default function Result() {
           presence_penalty: 0,
         },
         {
-          // headers: {
-          //   Authorization:
-          //     "Bearer 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", // Replace this with your actual API key
-          //   "Content-Type": "application/json",
-          // },
           headers: {
             Authorization:
               "Bearer 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", // Replace this with your actual API key
@@ -81,6 +48,70 @@ export default function Result() {
           },
         }
       );
+
+      // // Send the input to OpenAI GPT API
+      // const response = await axios.post(
+      //   "https://api.openai.com/v1/chat/completions",
+      //   {
+      //     model: "gpt-4",
+      //     messages: [
+      //       {
+      //         role: "system",
+      //         // content: `Based on the user input info, what mood and context of music would the user enjoy based on the following options: Mood: Happy, Sad, Calm, Energetic, Reflective, Motivated, Stressed, Relaxed, Excited, Angry, Confident, Anxious, Nostalgic, Peaceful, Lonely, Hopeful, Melancholic, Playful, Romantic, Inspirational. Context: Romance, Heartbreak, Nostalgia, Empowerment, Celebration, Friendship, Fantasy, Mental health. Your response should be in the form of bullet points with minimum 1 and maximum 4 mood options and minimum 1 maximum 4 context options`,
+      //         // content: `Read the user’s input very carefully. Take into consideration every key detail, including where they are at, what just happened, their present state, what is about to happen as well as other important information.
+
+      //         //   That being said, accurately identify the user’s mood, ideal music context and ideal scenario STRICTLY  based on the following options (do not add or remove words)
+
+      //         //   Mood: Happy, Sad, Calm, Energetic, Reflective, Motivated, Stressed, Relaxed, Excited, Angry, Confident, Anxious, Nostalgic, Peaceful, Lonely, Hopeful, Despair, Playful, Romantic, Inspirational, Empowered, Bittersweet, Awe, Triumph, Funny, Anticipation, In Love, Euphoria, Accomplished, Overjoyed
+
+      //         //   Context: Romance, Heartbreak, Nostalgia, Empowerment, Dance, Friendship, Fantasy, Mental Health, Success, Relatable, Uplifting
+
+      //         //   Ideal Scenario: Study, Driving, Gym, Wedding, Date, Gaming, Party, Late-Night Drives, Morning Routine, Breakup, Going Out
+
+
+      //         //   Your response should be in the form of bullet points with minimum 1 and maximum 4 mood options and minimum 1 maximum 4 context options and minimum 1 maximum 4 ‘ideal scenario’ options
+                
+
+      //         //   Good example output:
+
+      //         //   Mood: Energetic, Inspirational, Inspirational
+      //         //   Context: Romance
+      //         //   Ideal Scenario: driving, wedding, date / post date
+      //         //   `,
+      //         content: `Read the user’s input very carefully. Only consider explicit details provided, including where they are, what just happened, their present state, and what is about to happen. Avoid making any assumptions or interpreting implied feelings, contexts, or scenarios.
+      //           That being said, accurately identify the user’s mood, ideal music context, and ideal scenario strictly based on the following options (do not add, remove, or infer any additional words):
+      //           Mood: Happy, Sad, Calm, Energetic, Reflective, Motivated, Stressed, Relaxed, Excited, Angry, Confident, Anxious, Nostalgic, Peaceful, Lonely, Hopeful, Despair, Playful, Romantic, Inspirational, Empowered, Bittersweet, Awe, Triumph, Funny, Anticipation, In Love, Euphoria, Accomplished, Overjoyed
+      //           Context: Romance, Heartbreak, Nostalgia, Empowerment, Dance, Friendship, Fantasy, Mental Health, Success, Relatable, Uplifting
+      //           Ideal Scenario: Study, Driving, Gym, Wedding, Date, Gaming, Party, Late-Night Drives, Morning Routine, Breakup, Going Out
+      //           Your response must reflect the exact details provided in the user’s input and align strictly with the specified options. Do not infer additional meanings or emotions not explicitly stated.
+      //           Your response should be in the form of bullet points with minimum 1 and maximum 4 mood options and minimum 1 maximum 4 context options and minimum 1 maximum 4 ‘ideal scenario’ options
+      //           `, // User's input from the form
+      //       },
+      //       {
+      //         role: "user",
+      //         // content: username + `suggest me with genre = ${genre}` // User's input from the form
+      //         content: `${searchText} suggest me `, // User's input from the form
+      //       },
+      //     ],
+      //     temperature: 1.43,
+      //     max_tokens: 468,
+      //     top_p: 0.43,
+      //     frequency_penalty: 0,
+      //     presence_penalty: 0,
+      //   },
+      //   {
+      //     // headers: {
+      //     //   Authorization:
+      //     //     "Bearer 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", // Replace this with your actual API key
+      //     //   "Content-Type": "application/json",
+      //     // },
+      //     headers: {
+      //       Authorization:
+      //         "Bearer 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", // Replace this with your actual API key
+      //       "Content-Type": "application/json",
+      //     },
+      //   }
+      // );
 
       // Extract and display the response to the user
       const completionText = response.data.choices[0].message.content;
@@ -253,7 +284,7 @@ export default function Result() {
                     })} */}
 
                     <div className="song-container">
-                    {finalResult.map((item,index) => {
+                    {/* {finalResult.map((item,index) => {
                       return(<div className="song" key={index}>
                         <div className="columns w-row">
                           <div className="column w-col w-col-6"><img loading="lazy" src="/images/Webfow.png" alt className="image-59" />
@@ -267,7 +298,37 @@ export default function Result() {
                           </div>
                         </div>
                       </div>)
-                      })}
+                      })} */}
+
+
+
+                            <div className="song">
+                              <div className="columns w-row">
+                                <div className="column w-col w-col-6"><img loading="lazy" src="/images/Webfow.png" alt className="image-59" />
+                                  <div className="div-block-30">
+                                    <div className="text-block-5">America Online</div>
+                                    <div className="text-block-5 artist">The Midnight</div>
+                                  </div>
+                                </div>
+                                <div className="column-2 w-col w-col-6">
+                                  <p><span className="text-span-3">Moods: </span>Happy, Sad, Blah<br /><span className="text-span-2">Context:</span> Empowered, nostalgic<br /><span className="text-span-2">Genres:</span> Vaporwave</p>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div className="song">
+                              <div className="columns w-row">
+                                <div className="column w-col w-col-6"><img loading="lazy" src="/images/Webfow.png" alt className="image-59" />
+                                  <div className="div-block-30">
+                                    <div className="text-block-5">America Online</div>
+                                    <div className="text-block-5 artist">The Midnight</div>
+                                  </div>
+                                </div>
+                                <div className="column-2 w-col w-col-6">
+                                  <p><span className="text-span-3">Moods: </span>Happy, Sad, Blah<br /><span className="text-span-2">Context:</span> Empowered, nostalgic<br /><span className="text-span-2">Genres:</span> Vaporwave</p>
+                                </div>
+                              </div>
+                            </div>
                     </div>
                   </div>
                   ) :(
@@ -275,7 +336,27 @@ export default function Result() {
                       <div className="spark-three-column-grid">
                         <div id="w-node-_482326e1-07b7-fc76-91ae-7ad7b5f7d32e-49a6dd83" className="spark-wrapped-card spark-stacked">
                           <div className="spark-card-details">
-                            <div className="song">
+
+                             {finalResult.map((item,index) => {
+                              return(<div className="song" key={index}>
+                                <div className="columns w-row">
+                                  <div className="column w-col w-col-6"><img loading="lazy" src={item.image} alt className="image-59 cursor-pointer" onClick={() => {
+                                        window.open(item.link,"_blank");
+                                      }} />
+                                    <div className="div-block-30">
+                                      <div className="text-block-5 cursor-pointer" onClick={() => {
+                                        window.open(item.link,"_blank");
+                                      }}>{item.songName}</div>
+                                      <div className="text-block-5 artist">The Midnight</div>
+                                    </div>
+                                  </div>
+                                  <div className="column-2 w-col w-col-6">
+                                    <p><span className="text-span-3">Moods: </span>{item.mood}<br /><span className="text-span-2">Context:</span> {item.context}<br /><span className="text-span-2">Genres:</span> Vaporwave</p>
+                                  </div>
+                                </div>
+                              </div>)
+                              })}
+                            {/* <div className="song">
                               <div className="columns w-row">
                                 <div className="column w-col w-col-6"><img loading="lazy" src="/images/Webfow.png" alt className="image-59" />
                                   <div className="div-block-30">
@@ -326,7 +407,7 @@ export default function Result() {
                                   <p><span className="text-span-3">Moods: </span>Happy, Sad, Blah<br /><span className="text-span-2">Context:</span> Empowered, nostalgic<br /><span className="text-span-2">Genres:</span> Vaporwave</p>
                                 </div>
                               </div>
-                            </div>
+                            </div> */}
                           </div>
                         </div>
                       </div>
