@@ -322,7 +322,7 @@ export const songs = [
     "link": "https://open.spotify.com/track/1eJQlxRvmJWtoMotfrWAvM"
   },
   {
-    "songName": "Friday - flo rida, rebecca’s black remix",
+    "songName": "Friday - flo rida, rebecca's black remix",
     "mood": "Energetic, Excited, empowered",
     "context": "relatable, celebration",
     "image": "https://i.imgur.com/sUy8s7o.png",
@@ -357,14 +357,14 @@ export const songs = [
     "link": "https://open.spotify.com/track/5pEvOi9iZyERMdxOLavv3J"
   },
   {
-    "songName": "Heidi montang - i’ll do it slowed",
+    "songName": "Heidi montang - i'll do it slowed",
     "mood": "empowered, Confident, Romantic, Playful",
     "context": "Empowerment, Romance, success",
     "image": "https://i.imgur.com/Nxcumhv.png",
     "link": "https://open.spotify.com/track/1lAhLcq9nF1VUKUcEmGrEc"
   },
   {
-    "songName": "It’s a dream - lil uzi snow strippers",
+    "songName": "It's a dream - lil uzi snow strippers",
     "mood": "Happy, Energetic",
     "context": "fantasy",
     "image": "https://i.imgur.com/qojPAeq.png",

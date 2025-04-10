@@ -43,7 +43,7 @@ export default function Result() {
         {
           headers: {
             Authorization:
-              "Bearer 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", // Replace this with your actual API key
+              "Bearer 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", // Replace this with your actual API key
             "Content-Type": "application/json",
           },
         }
@@ -219,7 +219,7 @@ export default function Result() {
       );
 
       // Return true if both conditions are met
-      return moodMatches && contextMatches || idealScenerioMatches;
+      return moodMatches || contextMatches || idealScenerioMatches;
     });
   }
 
