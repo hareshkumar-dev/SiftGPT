@@ -43,8 +43,8 @@ export default function Result() {
         {
           headers: {
             Authorization:
-              "Bearer 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", // Replace this with your actual API key
-            "Content-Type": "application/json",
+              "Bearer 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", // Replace this with your actual API key
+              "Content-Type": "application/json",
           },
         }
       );
